@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="flo.zues.com.floodylab.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <Button
+        android:id="@+id/btn_retrofit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="retrofit" />
+
+    <Button
+        android:id="@+id/btn_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DrawView" />
+
+    <Button
+        android:id="@+id/btn_brvah"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="BRVAH" />
+
+    <Button
+        android:id="@+id/btn_animation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Animation" />
+
+</LinearLayout>
