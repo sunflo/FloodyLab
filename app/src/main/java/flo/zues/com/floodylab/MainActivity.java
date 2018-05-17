@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import flo.zues.com.floodylab.module.animation.ui.AnimationActivity;
 import flo.zues.com.floodylab.module.brvah.ui.BrvahActivity;
+import flo.zues.com.floodylab.module.service.view.ServiceTestActivity;
 import flo.zues.com.floodylab.ui.CanvasActivity;
 import flo.zues.com.floodylab.ui.RetrofitActivity;
 
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.btn_retrofit, R.id.btn_view, R.id.btn_brvah, R.id.btn_animation})
+    @OnClick({R.id.btn_retrofit, R.id.btn_view, R.id.btn_brvah, R.id.btn_animation, R.id.btn_service})
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -81,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_animation:
                 i = new Intent(MainActivity.this, AnimationActivity.class);
+                startActivity(i);
+                break;
+            case R.id.btn_service:
+                i = new Intent(MainActivity.this, ServiceTestActivity.class);
                 startActivity(i);
                 break;
 

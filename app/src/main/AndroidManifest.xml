@@ -23,6 +23,9 @@
         <activity android:name=".ui.CanvasActivity" />
         <activity android:name=".module.brvah.ui.BrvahActivity" />
         <activity android:name=".module.animation.ui.AnimationActivity" />
+        <activity android:name=".module.service.view.ServiceTestActivity" />
+
+        <service android:name=".module.service.service.TestService" />
     </application>
 
 </manifest>

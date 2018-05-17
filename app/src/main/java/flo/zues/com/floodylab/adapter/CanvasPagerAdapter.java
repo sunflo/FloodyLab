@@ -14,9 +14,14 @@ import java.util.List;
 
 public class CanvasPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments;
+    private List<String> titles;
 
     public void setFragments(List<Fragment> data) {
         this.fragments = data;
+    }
+
+    public void setTitles(List<String> titles) {
+        this.titles = titles;
     }
 
     public CanvasPagerAdapter(FragmentManager fm) {
@@ -35,6 +40,9 @@ public class CanvasPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "page_"+position;
+        if (titles == null || titles.size() < fragments.size()) {
+            return "page_" + position;
+        }
+        return titles.get(position);
     }
 }

@@ -2,6 +2,9 @@ package flo.zues.com.floodylab.module.animation.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -12,112 +15,49 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import flo.zues.com.floodylab.R;
+import flo.zues.com.floodylab.adapter.CanvasPagerAdapter;
+import flo.zues.com.floodylab.ui.AnimatorFragment;
+import flo.zues.com.floodylab.ui.Canvas1Fragment;
+import flo.zues.com.floodylab.ui.Canvas2Fragment;
+import flo.zues.com.floodylab.ui.Canvas3Fragment;
 
 /**
  * Created by huangxz on 2018/5/9.
  */
-public class AnimationActivity extends AppCompatActivity implements View.OnClickListener {
+public class AnimationActivity extends AppCompatActivity {
 
-    @BindView(R.id.iv_anim1)
-    View mAnimView1;
-    @BindView(R.id.iv_anim2)
-    View mAnimView2;
-    @BindView(R.id.iv_anim3)
-    View mAnimView3;
-    @BindView(R.id.iv_anim4)
-    View mAnimView4;
-    @BindView(R.id.iv_anim_mix)
-    View mAnimViewMix;
+    @BindView(R.id.tablayout)
+    TabLayout mTabLayout;
+    @BindView(R.id.viewpager)
+    ViewPager mViewPager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_animation_frame);
+        setContentView(R.layout.activity_canvas);
         ButterKnife.bind(this);
+
+        final CanvasPagerAdapter adapter = new CanvasPagerAdapter(getSupportFragmentManager());
+        adapter.setFragments(new ArrayList<Fragment>() {{
+            add(new TweenAnimatorFragment());
+            add(new ObjectAnimatorFragment());
+//            add(new Canvas3Fragment());
+//            add(new AnimatorFragment());
+        }});
+
+        adapter.setTitles(new ArrayList<String>() {{
+            add("Tween");
+            add("Object");
+        }});
+        mViewPager.setAdapter(adapter);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    @OnClick({R.id.btn_alpah, R.id.btn_rotate, R.id.btn_scale, R.id.btn_trans, R.id.iv_anim_mix})
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        Animation am = null;
-        switch (id) {
-            case R.id.btn_alpah:
-//                am = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
-                am = new AlphaAnimation(1.0f, 0.3f);
-                am.setFillAfter(true);
-//                am.setFillBefore(false    );
-                am.setRepeatMode(Animation.REVERSE);
-                am.setRepeatCount(Animation.INFINITE);
-                am.setInterpolator(AnimationActivity.this, android.R.anim.decelerate_interpolator);
-                am.setDuration(1000);
 
-                mAnimView1.startAnimation(am);
-
-                break;
-            case R.id.btn_rotate:
-//                //两个参数表示开始结束的角度，默认圆心为view左上角
-//                am = new RotateAnimation(0, 360);
-//                // 参数分别是开始结束的角度，相对于view自身的绝对坐标
-//                am = new RotateAnimation(0, 360,80,20);
-                am = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                am.setDuration(500);
-                am.setRepeatCount(Animation.INFINITE);
-                am.setInterpolator(AnimationActivity.this, android.R.anim.cycle_interpolator);
-                am.setFillAfter(true);
-                mAnimView2.startAnimation(am);
-                break;
-            case R.id.btn_scale:
-//                am = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
-                am = new ScaleAnimation(0.5f, 1, 0.5f, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                am.setInterpolator(AnimationActivity.this, android.R.anim.bounce_interpolator);
-                am.setFillAfter(true);
-                am.setDuration(1000);
-                mAnimView3.startAnimation(am);
-                break;
-            case R.id.btn_trans:
-//                am = AnimationUtils.loadAnimation(this, R.anim.anim_trans);
-//                am = new TranslateAnimation(0,20,0,20);
-                am = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -2f, Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0f);
-                am.setDuration(500);
-                am.setInterpolator(AnimationActivity.this, android.R.anim.bounce_interpolator);
-                mAnimView4.startAnimation(am);
-                break;
-            case R.id.iv_anim_mix:
-//                am = AnimationUtils.loadAnimation(this, R.anim.anim_mix_set);
-
-                AnimationSet as = new AnimationSet(true);
-                as.setDuration(50);
-                as.setRepeatCount(Animation.INFINITE);
-                as.setInterpolator(AnimationActivity.this, android.R.anim.bounce_interpolator);
-
-                ScaleAnimation sa = new ScaleAnimation(1, 1.1f, 1, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                sa.setRepeatCount(Animation.INFINITE);
-                sa.setRepeatMode(Animation.REVERSE);
-                sa.setDuration(500);
-
-                RotateAnimation ra = new RotateAnimation(-5, 5, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 1f);
-                ra.setRepeatCount(Animation.INFINITE);
-                ra.setFillAfter(true);
-                as.setInterpolator(AnimationActivity.this, android.R.anim.bounce_interpolator);
-                ra.setDuration(20);
-                ra.setStartOffset(1000);
-
-                AlphaAnimation aa = new AlphaAnimation(1f, 0.7f);
-                aa.setRepeatCount(Animation.INFINITE);
-                aa.setRepeatMode(Animation.REVERSE);
-                aa.setDuration(500);
-
-//                as.addAnimation(sa);
-                as.addAnimation(ra);
-//                as.addAnimation(aa);
-
-                mAnimViewMix.startAnimation(as);
-                break;
-        }
-    }
 }
